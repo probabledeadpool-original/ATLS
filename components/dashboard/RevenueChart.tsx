@@ -10,6 +10,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
+import { cn } from '@/lib/utils';
 
 const data = [
   { month: 'Jan', revenue: 420, target: 400 },
@@ -23,27 +24,30 @@ const data = [
   { month: 'Sep', revenue: 650, target: 480 },
 ];
 
-export function RevenueChart({ delay = 0 }: { delay?: number }) {
+export function RevenueChart({ delay = 0, className }: { delay?: number; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-card p-8 border border-border rounded-md shadow-sm flex flex-col h-full"
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={cn(
+        "bg-card/50 backdrop-blur-md p-6 border border-white/5 dark:border-white/10 rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col h-full hover:bg-card hover:border-white/10 transition-colors duration-300",
+        className
+      )}
     >
-      <div className="flex items-center justify-between mb-8 pb-6 border-b border-border">
+      <div className="flex items-center justify-between mb-8 pb-5 border-b border-white/5 dark:border-white/10">
         <div>
-          <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Revenue Forecast</h2>
+          <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Revenue Forecast</h2>
           <div className="font-mono text-4xl tracking-tight text-foreground">₹650M</div>
         </div>
         <div className="flex gap-6 items-center">
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-[#111111]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Actual</span>
+            <div className="w-1.5 h-1.5 bg-foreground rounded-full" />
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Actual</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 border border-[#111111]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Target</span>
+            <div className="w-1.5 h-1.5 border border-foreground rounded-full" />
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Target</span>
           </div>
         </div>
       </div>
@@ -57,34 +61,34 @@ export function RevenueChart({ delay = 0 }: { delay?: number }) {
                 <stop offset="95%" stopColor="var(--foreground)" stopOpacity={0}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="1" vertical={false} stroke="#F4F4F5" />
+            <CartesianGrid strokeDasharray="2 4" vertical={false} stroke="currentColor" className="opacity-10" />
             <XAxis 
               dataKey="month" 
               axisLine={false} 
               tickLine={false} 
-              tick={{ fontSize: 10, fill: '#888888', fontWeight: 700 }} 
+              tick={{ fontSize: 10, fill: 'currentColor', fontWeight: 500, opacity: 0.5 }} 
               dy={16}
             />
             <YAxis 
               axisLine={false} 
               tickLine={false} 
-              tick={{ fontSize: 10, fill: '#888888', fontWeight: 700 }}
+              tick={{ fontSize: 10, fill: 'currentColor', fontWeight: 500, opacity: 0.5 }}
               tickFormatter={(val) => `₹${val}M`}
             />
             <Tooltip
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="bg-[#111111] border border-[#333333] p-4 shadow-xl rounded-md">
-                      <p className="text-[10px] font-bold text-muted-foreground mb-3 uppercase tracking-widest">{label}</p>
-                      <div className="space-y-2">
-                        <p className="text-[#FFFFFF] text-sm flex items-center justify-between gap-6">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Actual</span>
-                          <span className="font-mono">₹{payload[0].value}M</span>
+                    <div className="bg-card/90 backdrop-blur-xl border border-white/10 p-4 shadow-2xl rounded-xl">
+                      <p className="text-[11px] font-semibold text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                      <div className="space-y-3">
+                        <p className="text-foreground text-sm flex items-center justify-between gap-6">
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Actual</span>
+                          <span className="font-mono font-medium">₹{payload[0].value}M</span>
                         </p>
                         <p className="text-muted-foreground text-sm flex items-center justify-between gap-6">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Target</span>
-                          <span className="font-mono">₹{payload[1].value}M</span>
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Target</span>
+                          <span className="font-mono font-medium">₹{payload[1].value}M</span>
                         </p>
                       </div>
                     </div>
@@ -96,7 +100,8 @@ export function RevenueChart({ delay = 0 }: { delay?: number }) {
             <Area 
               type="monotone" 
               dataKey="target" 
-              stroke="#CCCCCC" 
+              stroke="currentColor" 
+              strokeOpacity={0.3}
               strokeWidth={1}
               fill="none" 
               strokeDasharray="4 4"

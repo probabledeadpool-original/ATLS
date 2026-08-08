@@ -48,11 +48,11 @@ export function DynamicDock() {
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 200, mass: 1 }}
         className={cn(
-          "relative overflow-hidden group flex flex-col text-foreground",
-          "backdrop-blur-[24px] bg-black/[0.08] dark:bg-black/[0.2]",
+          "relative overflow-hidden group flex flex-col text-foreground transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "backdrop-blur-[20px] bg-[#111111]/[0.08] dark:bg-black/[0.2]",
           "border border-white/20 dark:border-white/10",
           "shadow-[0_24px_48px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.2)]",
-          state === 'idle' ? "cursor-pointer hover:bg-black/[0.12] dark:hover:bg-black/[0.25] transition-colors duration-500" : ""
+          state === 'idle' ? "cursor-pointer hover:bg-[#111111]/[0.12] dark:hover:bg-black/[0.3]" : ""
         )}
         onClick={() => {
           if (state === 'idle') setState('command');

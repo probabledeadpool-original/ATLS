@@ -4,18 +4,18 @@ import { BusinessHealth } from './BusinessHealth';
 import { MetricCard } from './MetricCard';
 import { RevenueChart } from './RevenueChart';
 import { motion } from 'motion/react';
-import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export function Overview() {
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-6">
       {/* Top Row */}
-      <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
+      <div className="col-span-12 lg:col-span-4 flex flex-col">
         <BusinessHealth />
       </div>
 
-      <div className="col-span-12 lg:col-span-8 flex flex-col gap-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
+      <div className="col-span-12 lg:col-span-8 flex flex-col">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 h-full">
           <MetricCard 
             title="Revenue" 
             value="₹42.8M" 
@@ -57,41 +57,43 @@ export function Overview() {
       </div>
 
       {/* Intelligence Row */}
-      <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
+      <div className="col-span-12 lg:col-span-4 flex flex-col">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-card border border-border rounded-md shadow-sm p-8 flex-1"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-card/50 backdrop-blur-md border border-white/5 dark:border-white/10 rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-6 flex-1 flex flex-col justify-between hover:bg-card hover:border-white/10 transition-colors duration-300"
         >
-          <div className="flex items-center gap-2 mb-8">
-            <div className="w-2 h-2 rounded-full bg-blue-500" />
-            <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">AI Strategic Brief</h3>
-          </div>
-          
-          <div className="space-y-6">
-            <p className="text-foreground text-lg font-medium leading-tight">
-              Commission realization is delayed by an average of 14 days from top carriers.
-            </p>
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <Sparkles className="w-4 h-4 text-blue-500" />
+              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">AI Strategic Brief</h3>
+            </div>
             
-            <div className="space-y-4 pt-6 border-t border-border">
-              <div>
-                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1 font-bold">Impact</div>
-                <div className="font-mono text-foreground">₹4.2M Locked</div>
-              </div>
+            <div className="space-y-6">
+              <p className="text-foreground text-[15px] font-medium leading-relaxed">
+                Commission realization is delayed by an average of 14 days from top carriers.
+              </p>
               
-              <div>
-                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1 font-bold">Recommendation</div>
-                <div className="text-[13px] text-muted-foreground font-medium leading-relaxed">
-                  Automatically deploy structured follow-ups to Top 3 carriers via Finance integration.
+              <div className="space-y-4 pt-5 border-t border-white/5 dark:border-white/10">
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 font-semibold">Impact</div>
+                  <div className="font-mono text-foreground text-sm">₹4.2M Locked</div>
+                </div>
+                
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 font-semibold">Recommendation</div>
+                  <div className="text-[13px] text-muted-foreground font-medium leading-relaxed">
+                    Automatically deploy structured follow-ups to Top 3 carriers via Finance integration.
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <button className="w-full py-2.5 bg-secondary hover:bg-secondary-hover text-foreground text-[10px] font-bold uppercase tracking-widest transition-colors rounded-md mt-4">
-              Deploy Workflow
-            </button>
           </div>
+          
+          <button className="w-full mt-6 py-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-semibold uppercase tracking-wider transition-colors rounded-xl">
+            Deploy Workflow
+          </button>
         </motion.div>
       </div>
     </div>
